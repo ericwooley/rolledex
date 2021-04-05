@@ -1,0 +1,1 @@
+CREATE TABLE "public"."users"("id" uuid NOT NULL, "email" text NOT NULL, PRIMARY KEY ("id") , UNIQUE ("email"), CONSTRAINT "valid_email" CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'));
