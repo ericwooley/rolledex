@@ -4,7 +4,16 @@ import { json, urlencoded } from 'body-parser';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import jwt from 'jsonwebtoken';
-
+import { getSdk } from './sdk';
+import { GraphQLClient } from 'graphql-request';
+import bcrypt from 'bcrypt';
+const sdk = getSdk(
+  new GraphQLClient('http://localhost:8080/v1/graphql', {
+    headers: {
+      'x-hasura-admin-secret': 'dev_secret',
+    },
+  })
+);
 passport.use(
   new LocalStrategy({}, (username, password, done) => {
     console.log('login', username);
@@ -41,14 +50,17 @@ app.post('/signUp', async (req, res) => {
   // get request input
   const { newUserArgs } = req.body.input;
 
-  // run some business logic
-
-  /*
-  // In case of errors:
-  return res.status(400).json({
-    message: "error happened"
-  })
-  */
+  try {
+    await sdk.createUser({
+      email: newUserArgs.email,
+      password: await new Promise<string>((resolve, reject) =>
+        bcrypt.hash(newUserArgs.password, 10, (err, hash) => {
+          if (error) return reject(error);
+          return resolve(hash);
+        })
+      ),
+    });
+  } catch {}
 
   // success
   return res.json({
