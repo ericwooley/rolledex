@@ -1,18 +1,20 @@
 import React from 'react';
 
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
 /* eslint-disable-next-line */
 export interface UiProps {}
 
-const StyledUi = styled.View`
+const StyledUi = styled.View``;
+const StyledText = styled.Text`
   color: pink;
 `;
 
 export function Ui(props: UiProps) {
   return (
     <StyledUi>
-      <h1>Welcome to ui!</h1>
+      <StyledText> Welcome to ui!</StyledText>
     </StyledUi>
   );
 }
