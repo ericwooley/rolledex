@@ -53,6 +53,7 @@ app.post('/signUp', async (req, res) => {
   // success
   return res.json({
     success: true,
+    email: newUserArgs.email,
   });
 });
 
