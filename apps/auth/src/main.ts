@@ -36,6 +36,25 @@ app.post(
     successRedirect: '/refresh_token',
   })
 );
+// Request Handler
+app.post('/signUp', async (req, res) => {
+  // get request input
+  const { newUserArgs } = req.body.input;
+
+  // run some business logic
+
+  /*
+  // In case of errors:
+  return res.status(400).json({
+    message: "error happened"
+  })
+  */
+
+  // success
+  return res.json({
+    success: true,
+  });
+});
 
 app.get('/refresh_token', async (req, res, next) => {
   if (!req.user) {

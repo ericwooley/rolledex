@@ -1,2 +1,18 @@
+type Mutation {
+  signUp (
+    newUserArgs: SignupArgs!
+  ): SignUpResult
+}
 
+
+
+
+input SignupArgs {
+  username : String!
+  password : String!
+}
+
+type SignUpResult {
+  success : Boolean!
+}
 

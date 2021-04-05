@@ -1,6 +1,12 @@
-actions: []
+actions:
+- name: signUp
+  definition:
+    kind: synchronous
+    handler: http://localhost:3333/signUp
 custom_types:
   enums: []
-  input_objects: []
-  objects: []
+  input_objects:
+  - name: SignupArgs
+  objects:
+  - name: SignUpResult
   scalars: []

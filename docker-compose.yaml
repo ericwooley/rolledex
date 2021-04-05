@@ -24,5 +24,8 @@ services:
       ## uncomment next line to set an admin secret
       HASURA_GRAPHQL_ADMIN_SECRET: dev_secret
       HASURA_GRAPHQL_JWT_SECRET: '{"type":"HS256", "key": "@kiNXpn4r!pD4UbM!**%5oAz9s3LdkPwUT@"}'
+    extra_hosts:
+      - 'localhost:host.docker.internal'
+
 volumes:
   db_data:
