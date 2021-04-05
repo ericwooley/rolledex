@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Ui } from '@rolledex/ui';
 
 export default function App() {
   const [n, setn] = React.useState(0);
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>{n}: Open up App to start working on your app!</Text>
+      <Ui></Ui>
       <StatusBar style="auto" />
     </View>
   );
