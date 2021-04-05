@@ -37,3 +37,18 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# expo
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# macOS
+.DS_Store
