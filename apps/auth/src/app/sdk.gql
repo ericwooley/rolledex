@@ -1,5 +1,12 @@
 mutation createUser($email: String!, $password: String!) {
   insert_users_one(object: { email: $email, password: $password }) {
+    email
     id
+  }
+}
+
+query getUserPassword($email: String!) {
+  users(where: { email: { _eq: $email } }) {
+    password
   }
 }

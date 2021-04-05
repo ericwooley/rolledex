@@ -1,7 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
 import * as Dom from 'graphql-request/dist/types.dom';
-import { GraphQLError } from 'graphql-request/dist/types';
-import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -223,6 +221,7 @@ export type Users = {
   __typename?: 'users';
   email: Scalars['String'];
   id: Scalars['uuid'];
+  password: Scalars['String'];
 };
 
 /** aggregated selection of "users" */
@@ -267,6 +266,7 @@ export type Users_Bool_Exp = {
   _or?: Maybe<Array<Maybe<Users_Bool_Exp>>>;
   email?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
+  password?: Maybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "users" */
@@ -281,6 +281,7 @@ export enum Users_Constraint {
 export type Users_Insert_Input = {
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -288,12 +289,14 @@ export type Users_Max_Fields = {
   __typename?: 'users_max_fields';
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "users" */
 export type Users_Max_Order_By = {
   email?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  password?: Maybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -301,12 +304,14 @@ export type Users_Min_Fields = {
   __typename?: 'users_min_fields';
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "users" */
 export type Users_Min_Order_By = {
   email?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  password?: Maybe<Order_By>;
 };
 
 /** response of any mutation on the table "users" */
@@ -335,6 +340,7 @@ export type Users_On_Conflict = {
 export type Users_Order_By = {
   email?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  password?: Maybe<Order_By>;
 };
 
 /** primary key columns input for table: "users" */
@@ -347,13 +353,16 @@ export enum Users_Select_Column {
   /** column name */
   Email = 'email',
   /** column name */
-  Id = 'id'
+  Id = 'id',
+  /** column name */
+  Password = 'password'
 }
 
 /** input type for updating data in table "users" */
 export type Users_Set_Input = {
   email?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['uuid']>;
+  password?: Maybe<Scalars['String']>;
 };
 
 /** update columns of table "users" */
@@ -361,7 +370,9 @@ export enum Users_Update_Column {
   /** column name */
   Email = 'email',
   /** column name */
-  Id = 'id'
+  Id = 'id',
+  /** column name */
+  Password = 'password'
 }
 
 
@@ -380,6 +391,7 @@ export type Uuid_Comparison_Exp = {
 
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String'];
+  password: Scalars['String'];
 }>;
 
 
@@ -387,15 +399,36 @@ export type CreateUserMutation = (
   { __typename?: 'mutation_root' }
   & { insert_users_one?: Maybe<(
     { __typename?: 'users' }
-    & Pick<Users, 'id'>
+    & Pick<Users, 'email' | 'id'>
+  )> }
+);
+
+export type GetUserPasswordQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetUserPasswordQuery = (
+  { __typename?: 'query_root' }
+  & { users: Array<(
+    { __typename?: 'users' }
+    & Pick<Users, 'password'>
   )> }
 );
 
 
-export const CreateUserDocument = gql`
-    mutation createUser($email: String!) {
-  insert_users_one(object: {email: $email}) {
+export const CreateUserDocument = `
+    mutation createUser($email: String!, $password: String!) {
+  insert_users_one(object: {email: $email, password: $password}) {
+    email
     id
+  }
+}
+    `;
+export const GetUserPasswordDocument = `
+    query getUserPassword($email: String!) {
+  users(where: {email: {_eq: $email}}) {
+    password
   }
 }
     `;
@@ -406,8 +439,11 @@ export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    createUser(variables: CreateUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data?: CreateUserMutation | undefined; extensions?: any; headers: Dom.Headers; status: number; errors?: GraphQLError[] | undefined; }> {
-        return withWrapper(() => client.rawRequest<CreateUserMutation>(CreateUserDocument, variables, requestHeaders));
+    createUser(variables: CreateUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateUserMutation> {
+      return withWrapper(() => client.request<CreateUserMutation>(CreateUserDocument, variables, requestHeaders));
+    },
+    getUserPassword(variables: GetUserPasswordQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserPasswordQuery> {
+      return withWrapper(() => client.request<GetUserPasswordQuery>(GetUserPasswordDocument, variables, requestHeaders));
     }
   };
 }

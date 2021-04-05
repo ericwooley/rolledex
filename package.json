@@ -3,9 +3,19 @@
   "version": "0.0.0",
   "license": "MIT",
   "main": "apps/expo/AppEntry.js",
+  "watch": {
+    "auth-admin-gen": {
+      "patterns": [
+        "apps/auth/src/app",
+        "metadata"
+      ],
+      "extensions": "gql,graphql",
+      "runOnChangeOnly": true
+    }
+  },
   "scripts": {
     "nx": "nx",
-    "dev": "docker-compose up -d && wait-on tcp:127.0.0.1:8080 && concurrently --names 'hasura,auth,expo' -c 'bgBlue.bold,bgMagenta.bold,bgRed.bold' 'sleep 2 && hasura console' 'nx serve auth' 'nx serve expo'",
+    "dev": "docker-compose up -d && wait-on tcp:127.0.0.1:8080 && concurrently --names 'hasura,auth,expo,watch' -c 'bgBlue.bold,bgMagenta.bold,bgRed.bold,bgGreen.bold' 'sleep 2 && hasura console' 'nx serve auth' 'nx serve expo' 'yarn watch'",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
@@ -32,6 +42,7 @@
     "expo:web": "expo start --web",
     "expo:eject": "expo eject",
     "postinstall": "typesync",
+    "watch": "npm-watch",
     "auth-admin-gen": "graphql-codegen --config codegen.yml"
   },
   "private": true,
@@ -48,6 +59,7 @@
     "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",
     "next": "10.0.9",
+    "npm-watch": "^0.9.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

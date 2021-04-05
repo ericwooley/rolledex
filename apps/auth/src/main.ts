@@ -4,19 +4,25 @@ import { json, urlencoded } from 'body-parser';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import jwt from 'jsonwebtoken';
-import { getSdk } from './sdk';
-import { GraphQLClient } from 'graphql-request';
+import { getSdk, SignupArgs } from './sdk';
+import { GraphQLClient, ClientError } from 'graphql-request';
 import bcrypt from 'bcrypt';
-const sdk = getSdk(
-  new GraphQLClient('http://localhost:8080/v1/graphql', {
-    headers: {
-      'x-hasura-admin-secret': 'dev_secret',
-    },
-  })
-);
+const graphQLClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
+  headers: {
+    'x-hasura-admin-secret': 'dev_secret',
+  },
+});
+const sdk = getSdk(graphQLClient);
 passport.use(
-  new LocalStrategy({}, (username, password, done) => {
-    console.log('login', username);
+  new LocalStrategy({}, async (username, password, done) => {
+    const pwResponse = await sdk.getUserPassword({ email: username });
+    await new Promise((resolve, reject) => {
+      bcrypt.compare(password, pwResponse.users[0].password, (err, same) => {
+        if (err) return reject(err);
+        if (!same) return reject('Incorrect password');
+        resolve(same);
+      });
+    });
     done(null, { email: username });
   })
 );
@@ -48,25 +54,36 @@ app.post(
 // Request Handler
 app.post('/signUp', async (req, res) => {
   // get request input
-  const { newUserArgs } = req.body.input;
+  const { newUserArgs }: { newUserArgs: SignupArgs } = req.body.input;
 
   try {
-    await sdk.createUser({
-      email: newUserArgs.email,
-      password: await new Promise<string>((resolve, reject) =>
-        bcrypt.hash(newUserArgs.password, 10, (err, hash) => {
-          if (error) return reject(error);
-          return resolve(hash);
-        })
-      ),
-    });
-  } catch {}
+    const password = await new Promise<string>((resolve, reject) =>
+      bcrypt.hash(newUserArgs.password, 10, (err, hash) => {
+        if (err) return reject(err);
+        return resolve(hash);
+      })
+    );
 
-  // success
-  return res.json({
-    success: true,
-    email: newUserArgs.email,
-  });
+    const response = await sdk.createUser({
+      email: newUserArgs.email,
+      password: `${password}`,
+    });
+    // success
+    return res.status(200).json({
+      success: true,
+      email: response.insert_users_one.email,
+    });
+  } catch (e) {
+    const error: ClientError = e;
+    console.log(
+      'User registration failed',
+      error.response?.errors.map(({ message }) => message)
+    );
+    return res.status(400).json({
+      code: '400',
+      message: 'Unable to create user.',
+    });
+  }
 });
 
 app.get('/refresh_token', async (req, res, next) => {
