@@ -1,4 +1,9 @@
 type Mutation {
+  refreshToken : NewTokenResponse
+}
+
+
+type Mutation {
   signUp (
     newUserArgs: SignupArgs!
   ): SignUpResult
@@ -12,8 +17,21 @@ input SignupArgs {
   password : String!
 }
 
+input LoginArg {
+  email : String!
+  password : String!
+}
+
 type SignUpResult {
   success : Boolean!
   email : String!
+}
+
+type LoginResponse {
+  accessToken : String!
+}
+
+type NewTokenResponse {
+  accessToken : String!
 }
 

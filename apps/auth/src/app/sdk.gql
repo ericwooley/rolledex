@@ -5,8 +5,10 @@ mutation createUser($email: String!, $password: String!) {
   }
 }
 
-query getUserPassword($email: String!) {
+query getUserData($email: String!) {
   users(where: { email: { _eq: $email } }) {
+    email
+    id
     password
   }
 }

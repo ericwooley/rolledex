@@ -16,6 +16,21 @@ export type Scalars = {
   uuid: any;
 };
 
+export type LoginArg = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  accessToken: Scalars['String'];
+};
+
+export type NewTokenResponse = {
+  __typename?: 'NewTokenResponse';
+  accessToken: Scalars['String'];
+};
+
 export type SignUpResult = {
   __typename?: 'SignUpResult';
   email: Scalars['String'];
@@ -71,6 +86,8 @@ export type Mutation_Root = {
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
+  /** perform the action: "refreshToken" */
+  refreshToken?: Maybe<NewTokenResponse>;
   /** perform the action: "signUp" */
   signUp?: Maybe<SignUpResult>;
   /** update data of the table: "users" */
@@ -403,16 +420,16 @@ export type CreateUserMutation = (
   )> }
 );
 
-export type GetUserPasswordQueryVariables = Exact<{
+export type GetUserDataQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetUserPasswordQuery = (
+export type GetUserDataQuery = (
   { __typename?: 'query_root' }
   & { users: Array<(
     { __typename?: 'users' }
-    & Pick<Users, 'password'>
+    & Pick<Users, 'email' | 'id' | 'password'>
   )> }
 );
 
@@ -425,9 +442,11 @@ export const CreateUserDocument = `
   }
 }
     `;
-export const GetUserPasswordDocument = `
-    query getUserPassword($email: String!) {
+export const GetUserDataDocument = `
+    query getUserData($email: String!) {
   users(where: {email: {_eq: $email}}) {
+    email
+    id
     password
   }
 }
@@ -442,8 +461,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     createUser(variables: CreateUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateUserMutation> {
       return withWrapper(() => client.request<CreateUserMutation>(CreateUserDocument, variables, requestHeaders));
     },
-    getUserPassword(variables: GetUserPasswordQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserPasswordQuery> {
-      return withWrapper(() => client.request<GetUserPasswordQuery>(GetUserPasswordDocument, variables, requestHeaders));
+    getUserData(variables: GetUserDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserDataQuery> {
+      return withWrapper(() => client.request<GetUserDataQuery>(GetUserDataDocument, variables, requestHeaders));
     }
   };
 }
