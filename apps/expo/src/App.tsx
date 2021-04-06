@@ -15,9 +15,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>{n}: Open up App to start working on your app!</Text>
-      <Text>
-        {n}: {JSON.stringify(Constants, null, 2)}
-      </Text>
+      <Text>extra: {JSON.stringify(Constants.manifest.extra, null, 2)}</Text>
       <Ui></Ui>
       <StatusBar style="auto" />
     </View>
