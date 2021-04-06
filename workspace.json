@@ -33,9 +33,7 @@
               }
             ]
           },
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "configurations": {
             "production": {
               "optimization": true,
@@ -55,7 +53,7 @@
           "options": {
             "commands": [
               {
-                "command": "expo start --config ./apps/expo/src/app.json"
+                "command": "expo start --config ./apps/expo/src/app.config.js"
               }
             ]
           }
@@ -63,16 +61,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/expo/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/expo/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/expo"
-          ],
+          "outputs": ["coverage/apps/expo"],
           "options": {
             "jestConfig": "apps/expo/jest.config.js",
             "passWithNoTests": true
@@ -88,9 +82,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }
@@ -102,16 +94,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/auth",
             "main": "apps/auth/src/main.ts",
             "tsConfig": "apps/auth/tsconfig.app.json",
-            "assets": [
-              "apps/auth/src/assets"
-            ]
+            "assets": ["apps/auth/src/assets"]
           },
           "configurations": {
             "production": {
@@ -136,9 +124,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/auth/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/auth/**/*.ts"]
           }
         }
       }
