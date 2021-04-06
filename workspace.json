@@ -53,7 +53,7 @@
           "options": {
             "commands": [
               {
-                "command": "expo start --config ./apps/expo/src/app.config.js"
+                "command": "expo start --config ./apps/expo/src/app.json"
               }
             ]
           }
