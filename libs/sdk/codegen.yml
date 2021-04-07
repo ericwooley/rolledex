@@ -1,0 +1,23 @@
+overwrite: true
+schema:
+  - "http://localhost:8080/v1/graphql":
+      headers:
+        x-hasura-admin-secret: dev_secret
+documents:
+  - "libs/sdk/src/**/*.gql"
+generates:
+  libs/sdk/src/lib/generated/sdk.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+    config:
+      # rawRequest: true
+      documentMode: string
+  libs/sdk/src/lib/generated/apollo.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true

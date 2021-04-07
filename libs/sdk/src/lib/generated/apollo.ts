@@ -1,9 +1,10 @@
-import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -442,64 +443,98 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type CreateUserMutationVariables = Exact<{
+export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
 }>;
 
 
-export type CreateUserMutation = (
+export type LoginMutation = (
   { __typename?: 'mutation_root' }
-  & { insert_users_one?: Maybe<(
-    { __typename?: 'users' }
-    & Pick<Users, 'email' | 'id'>
+  & { login?: Maybe<(
+    { __typename?: 'LoginResponse' }
+    & Pick<LoginResponse, 'accessToken'>
   )> }
 );
 
-export type GetUserDataQueryVariables = Exact<{
-  email: Scalars['String'];
-}>;
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserDataQuery = (
+export type MeQuery = (
   { __typename?: 'query_root' }
-  & { users: Array<(
-    { __typename?: 'users' }
-    & Pick<Users, 'email' | 'id' | 'password'>
-  )> }
+  & { me: (
+    { __typename?: 'MeResponse' }
+    & Pick<MeResponse, 'id' | 'email'>
+  ) }
 );
 
 
-export const CreateUserDocument = `
-    mutation createUser($email: String!, $password: String!) {
-  insert_users_one(object: {email: $email, password: $password}) {
-    email
-    id
+export const LoginDocument = gql`
+    mutation login($email: String!, $password: String!) {
+  login(loginArgs: {email: $email, password: $password}) {
+    accessToken
   }
 }
     `;
-export const GetUserDataDocument = `
-    query getUserData($email: String!) {
-  users(where: {email: {_eq: $email}}) {
-    email
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const MeDocument = gql`
+    query me {
+  me {
     id
-    password
+    email
   }
 }
     `;
 
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
-
-
-const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
-export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-  return {
-    createUser(variables: CreateUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateUserMutation> {
-      return withWrapper(() => client.request<CreateUserMutation>(CreateUserDocument, variables, requestHeaders));
-    },
-    getUserData(variables: GetUserDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserDataQuery> {
-      return withWrapper(() => client.request<GetUserDataQuery>(GetUserDataDocument, variables, requestHeaders));
-    }
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+      }
+export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+        }
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;

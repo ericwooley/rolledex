@@ -7,6 +7,12 @@ import jwt from 'jsonwebtoken';
 import { getSdk, SignupArgs } from './sdk';
 import { GraphQLClient, ClientError } from 'graphql-request';
 import bcrypt from 'bcrypt';
+import cors from 'cors';
+import redis from 'redis';
+import CreateRedisStore from 'connect-redis';
+
+const redisClient = redis.createClient();
+const RedisStore = CreateRedisStore(createExpressSession);
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) throw new Error('JWT_SECRET is not defined');
 declare module 'express' {
@@ -54,12 +60,27 @@ passport.deserializeUser(function (user: { id: string }, done) {
 });
 
 const app = express();
+app.use((req, res, next) =>
+  cors({
+    credentials: true,
+    origin:
+      process.env.NODE_ENV === 'development'
+        ? req.headers.origin
+        : 'http://whatever.com',
+  })(req, res, next)
+);
 app.use(json());
 app.use(urlencoded({ extended: true }));
 const expressSession = createExpressSession({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
+  store: new RedisStore({
+    host: 'localhost',
+    port: 6379,
+    client: redisClient,
+    ttl: 86400,
+  }),
 });
 app.use(expressSession);
 app.use(passport.initialize());
@@ -81,14 +102,35 @@ const refreshTokenHandler = (req: Request, res: Response) => {
     },
     JWT_SECRET,
     {
-      expiresIn: '15m',
+      // expiresIn: '15m',
     }
   );
 
   return res.status(200).json({ accessToken: token });
 };
 
-app.post('/login', passport.authenticate('local'), refreshTokenHandler);
+app.use('/logout', (req, res) => {
+  req.logout();
+  res.status(200).json({ ok: true });
+});
+app.post(
+  '/login',
+  (req, res, next) => {
+    req.body = { ...req.body, ...(req.body.input?.loginArgs || {}) };
+    passport.authenticate('local')(req, res, next);
+  },
+  refreshTokenHandler
+);
+
+app.post('/me', async (req, res) => {
+  console.log('me', req.user);
+  if (!req.user)
+    return res.status(400).json({
+      message: 'You are not logged in',
+    });
+  // success
+  return res.json(req.user);
+});
 // Request Handler
 app.post('/signUp', async (req, res) => {
   if (req.user) {

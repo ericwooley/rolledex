@@ -1,20 +1,54 @@
 actions:
-- name: refreshToken
+- name: login
   definition:
     kind: synchronous
     handler: http://host.docker.internal:3333/login
     forward_client_headers: true
+  permissions:
+  - role: anonymous
+  - role: user
+- name: logout
+  definition:
+    kind: synchronous
+    handler: http://host.docker.internal:3333/logout
+    forward_client_headers: true
+  permissions:
+  - role: anonymous
+  - role: user
+- name: me
+  definition:
+    kind: ""
+    handler: http://host.docker.internal:3333/me
+    forward_client_headers: true
+  permissions:
+  - role: user
+- name: refreshToken
+  definition:
+    kind: synchronous
+    handler: http://host.docker.internal:3333/refresh_token
+    forward_client_headers: true
+  permissions:
+  - role: anonymous
+  - role: user
 - name: signUp
   definition:
     kind: synchronous
     handler: http://host.docker.internal:3333/signUp
+    forward_client_headers: true
+  permissions:
+  - role: anonymous
+  - role: user
 custom_types:
   enums: []
   input_objects:
   - name: SignupArgs
   - name: LoginArg
+  - name: LoginInput
   objects:
   - name: SignUpResult
   - name: LoginResponse
   - name: NewTokenResponse
+  - name: SampleOutput
+  - name: MeResponse
+  - name: LogoutResponse
   scalars: []

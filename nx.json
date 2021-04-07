@@ -18,6 +18,7 @@
   "projects": {
     "expo": { "tags": [] },
     "ui": { "tags": [] },
-    "auth": { "tags": [] }
+    "auth": { "tags": [] },
+    "sdk": { "tags": [] }
   }
 }

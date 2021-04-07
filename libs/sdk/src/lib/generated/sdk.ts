@@ -442,48 +442,44 @@ export type Uuid_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['uuid']>>;
 };
 
-export type CreateUserMutationVariables = Exact<{
+export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
 }>;
 
 
-export type CreateUserMutation = (
+export type LoginMutation = (
   { __typename?: 'mutation_root' }
-  & { insert_users_one?: Maybe<(
-    { __typename?: 'users' }
-    & Pick<Users, 'email' | 'id'>
+  & { login?: Maybe<(
+    { __typename?: 'LoginResponse' }
+    & Pick<LoginResponse, 'accessToken'>
   )> }
 );
 
-export type GetUserDataQueryVariables = Exact<{
-  email: Scalars['String'];
-}>;
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserDataQuery = (
+export type MeQuery = (
   { __typename?: 'query_root' }
-  & { users: Array<(
-    { __typename?: 'users' }
-    & Pick<Users, 'email' | 'id' | 'password'>
-  )> }
+  & { me: (
+    { __typename?: 'MeResponse' }
+    & Pick<MeResponse, 'id' | 'email'>
+  ) }
 );
 
 
-export const CreateUserDocument = `
-    mutation createUser($email: String!, $password: String!) {
-  insert_users_one(object: {email: $email, password: $password}) {
-    email
-    id
+export const LoginDocument = `
+    mutation login($email: String!, $password: String!) {
+  login(loginArgs: {email: $email, password: $password}) {
+    accessToken
   }
 }
     `;
-export const GetUserDataDocument = `
-    query getUserData($email: String!) {
-  users(where: {email: {_eq: $email}}) {
-    email
+export const MeDocument = `
+    query me {
+  me {
     id
-    password
+    email
   }
 }
     `;
@@ -494,11 +490,11 @@ export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    createUser(variables: CreateUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateUserMutation> {
-      return withWrapper(() => client.request<CreateUserMutation>(CreateUserDocument, variables, requestHeaders));
+    login(variables: LoginMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LoginMutation> {
+      return withWrapper(() => client.request<LoginMutation>(LoginDocument, variables, requestHeaders));
     },
-    getUserData(variables: GetUserDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserDataQuery> {
-      return withWrapper(() => client.request<GetUserDataQuery>(GetUserDataDocument, variables, requestHeaders));
+    me(variables?: MeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MeQuery> {
+      return withWrapper(() => client.request<MeQuery>(MeDocument, variables, requestHeaders));
     }
   };
 }

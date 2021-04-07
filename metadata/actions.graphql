@@ -1,4 +1,21 @@
 type Mutation {
+  login (
+    loginArgs: LoginInput!
+  ): LoginResponse
+}
+
+
+type Mutation {
+  logout : LogoutResponse
+}
+
+
+type Query {
+  me : MeResponse!
+}
+
+
+type Mutation {
   refreshToken : NewTokenResponse
 }
 
@@ -22,6 +39,11 @@ input LoginArg {
   password : String!
 }
 
+input LoginInput {
+  email : String!
+  password : String!
+}
+
 type SignUpResult {
   success : Boolean!
   email : String!
@@ -33,5 +55,19 @@ type LoginResponse {
 
 type NewTokenResponse {
   accessToken : String!
+}
+
+type SampleOutput {
+  id : uuid!
+  email : String!
+}
+
+type MeResponse {
+  id : uuid!
+  email : String!
+}
+
+type LogoutResponse {
+  ok : Boolean!
 }
 

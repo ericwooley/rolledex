@@ -1,20 +1,11 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/next"
-  },
+  "cli": { "defaultCollection": "@nrwl/next" },
   "defaultProject": "auth",
   "generators": {
-    "@nrwl/react": {
-      "application": {
-        "babel": true
-      }
-    },
+    "@nrwl/react": { "application": { "babel": true } },
     "@nrwl/next": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
+      "application": { "style": "styled-components", "linter": "eslint" }
     }
   },
   "projects": {
@@ -29,7 +20,7 @@
             "outputPath": "dist/apps/expo",
             "commands": [
               {
-                "command": "mkdir -p dist/apps/expo && rm -rf dist/apps/expo || echo 'no previous build'; expo build:web --config ./apps/expo/src/app.json; mv web-build dist/apps/expo"
+                "command": "mkdir -p dist/apps/expo && rm -rf dist/apps/expo || echo 'no previous build'; expo build:web --config ./apps/expo/src/app.config.js; mv web-build dist/apps/expo"
               }
             ]
           },
@@ -52,17 +43,13 @@
           "executor": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
-              {
-                "command": "expo start --config ./apps/expo/src/app.json"
-              }
+              { "command": "expo start --config ./apps/expo/src/app.config.js" }
             ]
           }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/expo/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["apps/expo/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -81,9 +68,7 @@
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx}"]
-          }
+          "options": { "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx}"] }
         }
       }
     },
@@ -117,15 +102,22 @@
         },
         "serve": {
           "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "auth:build"
-          }
+          "options": { "buildTarget": "auth:build" }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/auth/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["apps/auth/**/*.ts"] }
+        }
+      }
+    },
+    "sdk": {
+      "root": "libs/sdk",
+      "sourceRoot": "libs/sdk/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/sdk/**/*.ts"] }
         }
       }
     }
