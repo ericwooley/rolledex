@@ -91,7 +91,6 @@ const refreshTokenHandler = (req: Request, res: Response) => {
       message: 'you must be logged in to get a token',
     });
   }
-  console.log('user id', req.user?.id);
   const token = jwt.sign(
     {
       'https://hasura.io/jwt/claims': {
@@ -124,17 +123,19 @@ app.post(
 
 app.post('/me', async (req, res) => {
   console.log('me', req.user);
-  if (!req.user)
-    return res.status(400).json({
-      message: 'You are not logged in',
-    });
-  // success
-  return res.json(req.user);
+  return res.json({
+    authorized: !!req.user,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    email: req.user?.email || '',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    id: req.user?.id || '',
+  });
 });
 // Request Handler
 app.post('/signUp', async (req, res) => {
   if (req.user) {
-    console.log('had user', req.user);
     req.logOut();
   }
   // get request input

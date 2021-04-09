@@ -1,17 +1,17 @@
 type Mutation {
   login (
     loginArgs: LoginInput!
-  ): LoginResponse
+  ): LoginResponse!
 }
 
 
 type Mutation {
-  logout : LogoutResponse
+  logout : LogoutResponse!
 }
 
 
 type Query {
-  me : MeResponse!
+  me : MeResponse
 }
 
 
@@ -63,6 +63,7 @@ type SampleOutput {
 }
 
 type MeResponse {
+  authorized : Boolean!
   id : uuid!
   email : String!
 }

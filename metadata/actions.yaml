@@ -21,6 +21,7 @@ actions:
     handler: http://host.docker.internal:3333/me
     forward_client_headers: true
   permissions:
+  - role: anonymous
   - role: user
 - name: refreshToken
   definition:

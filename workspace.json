@@ -120,6 +120,28 @@
           "options": { "lintFilePatterns": ["libs/sdk/**/*.ts"] }
         }
       }
+    },
+    "gql": {
+      "root": "libs/gql",
+      "sourceRoot": "libs/gql/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/gql/**/*.ts"] }
+        }
+      }
+    },
+    "forms": {
+      "root": "libs/forms",
+      "sourceRoot": "libs/forms/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["libs/forms/**/*.{ts,tsx,js,jsx}"] }
+        }
+      }
     }
   }
 }

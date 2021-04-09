@@ -1738,6 +1738,30 @@
     pouchdb-collections "^1.0.1"
     tiny-queue "^0.2.1"
 
+"@gqless/cli@^2.0.14":
+  version "2.0.14"
+  resolved "https://registry.yarnpkg.com/@gqless/cli/-/cli-2.0.14.tgz#96923cc31996e55af696dfb6ac4865fca454cb7e"
+  integrity sha512-Lshv+5EQJrafAhu4xiFW4OYNwLEyvFHyXCjbKZIZ7CxkmWXj+gn3zTCVIRgJsUMAWJfPcYevWKeBeWGD+elKTQ==
+  dependencies:
+    "@graphql-codegen/core" "^1.17.9"
+    "@graphql-codegen/typescript" "^1.21.1"
+    "@graphql-tools/delegate" "^7.1.2"
+    "@graphql-tools/utils" "^7.7.1"
+    "@graphql-tools/wrap" "^7.0.5"
+    commander "^7.2.0"
+    cosmiconfig "^7.0.0"
+    cross-fetch "^3.1.4"
+    gqless "^2.0.11"
+    mkdirp "^1.0.4"
+    prettier "^2.2.1"
+
+"@gqless/react@^2.0.13":
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/@gqless/react/-/react-2.0.13.tgz#78f49fc802b88c4bb4ecae26a0084ffd9f8b6a70"
+  integrity sha512-agrlMBdM0h7HLCMVSo6Y/M8Cj94MO9UmChF68gE+B8EuEdvwJ8hXe8i6Hz0hYlX97JgGXUepU92iTH3hmhJdgA==
+  dependencies:
+    react-ssr-prepass "^1.4.0"
+
 "@graphql-codegen/cli@1.21.3":
   version "1.21.3"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-1.21.3.tgz#3506c5d019c6995be1927bd4d9c67a739fafe5e6"
@@ -1784,7 +1808,7 @@
     yaml "^1.10.0"
     yargs "^16.1.1"
 
-"@graphql-codegen/core@1.17.9":
+"@graphql-codegen/core@1.17.9", "@graphql-codegen/core@^1.17.9":
   version "1.17.9"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/core/-/core-1.17.9.tgz#c03e71018ff04d26f5139a2d90a32b31d3bb2b43"
   integrity sha512-7nwy+bMWqb0iYJ2DKxA9UiE16meeJ2Ch2XWS/N/ZnA0snTR+GZ20USI8z6YqP1Fuist7LvGO1MbitO2qBT8raA==
@@ -1903,6 +1927,19 @@
     dataloader "2.0.0"
     is-promise "4.0.0"
     tslib "~2.1.0"
+
+"@graphql-tools/delegate@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/delegate/-/delegate-7.1.2.tgz#a04f2bf039404d81ef057f626a984ed3cac5b53f"
+  integrity sha512-XvmIod9ZYKMLk2vV5ulbUyo1Va4SCvvp/VNq4RTae2SEvYwNewc1xs1Klmz8khV+c2V30xKSccNWGA6BWyTTog==
+  dependencies:
+    "@ardatan/aggregate-error" "0.0.6"
+    "@graphql-tools/batch-execute" "^7.1.0"
+    "@graphql-tools/schema" "^7.0.0"
+    "@graphql-tools/utils" "^7.7.1"
+    dataloader "2.0.0"
+    is-promise "4.0.0"
+    tslib "~2.2.0"
 
 "@graphql-tools/git-loader@^6":
   version "6.2.6"
@@ -2075,7 +2112,7 @@
     camel-case "4.1.2"
     tslib "~2.1.0"
 
-"@graphql-tools/wrap@^7.0.4":
+"@graphql-tools/wrap@^7.0.4", "@graphql-tools/wrap@^7.0.5":
   version "7.0.5"
   resolved "https://registry.yarnpkg.com/@graphql-tools/wrap/-/wrap-7.0.5.tgz#8659a119abef11754f712b0c202e41a484951e0b"
   integrity sha512-KCWBXsDfvG46GNUawRltJL4j9BMGoOG7oo3WEyCQP+SByWXiTe5cBF45SLDVQgdjljGNZhZ4Lq/7avIkF7/zDQ==
@@ -3298,6 +3335,13 @@
     lodash.debounce "^4.0.8"
     native-url "^0.2.6"
     schema-utils "^2.6.5"
+
+"@react-native-async-storage/async-storage@^1.15.2":
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.15.2.tgz#895898363fbb8f6db477629fd4ba0b013fe27484"
+  integrity sha512-E1SajKtyeLwi6JVfMZQx+I01z3ZvA0/O2e09EVFzU75YK0696S5N2CqeKlxAZQFVSvzh+Jfq0q412Kdkuh+l6A==
+  dependencies:
+    deep-assign "^3.0.0"
 
 "@react-native-community/cli-debugger-ui@^4.13.1":
   version "4.13.1"
@@ -5116,7 +5160,7 @@ array.prototype.flat@^1.2.3:
     define-properties "^1.1.3"
     es-abstract "^1.18.0-next.1"
 
-array.prototype.flatmap@^1.2.4:
+array.prototype.flatmap@^1.2.3, array.prototype.flatmap@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/array.prototype.flatmap/-/array.prototype.flatmap-1.2.4.tgz#94cfd47cc1556ec0747d97f7c7738c58122004c9"
   integrity sha512-r9Z0zYoxqHz60vvQbWEdXIEtCwHF0yxaWfno9qzXeNHvfyl3BZqygmGzb84dsubyaXLH4husF+NFgMSdpZhk2Q==
@@ -6714,6 +6758,11 @@ commander@^5.1.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
   integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
 
+commander@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
+  integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
+
 commander@~2.13.0:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
@@ -7100,7 +7149,7 @@ cross-fetch@3.1.1:
   dependencies:
     node-fetch "2.6.1"
 
-cross-fetch@^3.0.4, cross-fetch@^3.0.6:
+cross-fetch@^3.0.4, cross-fetch@^3.0.6, cross-fetch@^3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.4.tgz#9723f3a3a247bf8b89039f3a380a9244e8fa2f39"
   integrity sha512-1eAtFWdIubi6T4XPy6ei9iUFoKpUkIF971QLN8lIvvvwueI65+Nw5haMNKUwfJxabqlIIDODJKGrQ66gxC0PbQ==
@@ -8344,6 +8393,23 @@ eslint-plugin-react-hooks@^2.4.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.5.1.tgz#4ef5930592588ce171abeb26f400c7fbcbc23cd0"
   integrity sha512-Y2c4b55R+6ZzwtTppKwSmK/Kar8AdLiC2f9NADCuxbcTgPPg41Gyqa6b9GppgXSvCtkRw43ZE86CT5sejKC6/g==
+
+eslint-plugin-react@7.21.5:
+  version "7.21.5"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.21.5.tgz#50b21a412b9574bfe05b21db176e8b7b3b15bff3"
+  integrity sha512-8MaEggC2et0wSF6bUeywF7qQ46ER81irOdWS4QWxnnlAEsnzeBevk1sWh7fhpCghPpXb+8Ks7hvaft6L/xsR6g==
+  dependencies:
+    array-includes "^3.1.1"
+    array.prototype.flatmap "^1.2.3"
+    doctrine "^2.1.0"
+    has "^1.0.3"
+    jsx-ast-utils "^2.4.1 || ^3.0.0"
+    object.entries "^1.1.2"
+    object.fromentries "^2.0.2"
+    object.values "^1.1.1"
+    prop-types "^15.7.2"
+    resolve "^1.18.1"
+    string.prototype.matchall "^4.0.2"
 
 eslint-plugin-react@^7.18.3:
   version "7.23.1"
@@ -9740,6 +9806,14 @@ got@^9.6.0:
     p-cancelable "^1.0.0"
     to-readable-stream "^1.0.0"
     url-parse-lax "^3.0.0"
+
+gqless@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/gqless/-/gqless-2.0.11.tgz#e14ac55ef41e8a4785283a5eaf370f3007e8221a"
+  integrity sha512-2Iaxcwgw9/leqMD1VWnIX0dzVEgO89/gqgPTjonMnxcfdl0KJ/EBjB5BZnSbGSPJokUDgcw3lpglD8XooCWm4g==
+  dependencies:
+    lodash "^4.17.21"
+    lodash-es "^4.17.21"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.3, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3, graceful-fs@^4.2.4:
   version "4.2.6"
@@ -12263,6 +12337,11 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
+lodash-es@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash._reinterpolate@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
@@ -13695,7 +13774,7 @@ object.assign@^4.1.0, object.assign@^4.1.2:
     has-symbols "^1.0.1"
     object-keys "^1.1.1"
 
-object.entries@^1.1.0, object.entries@^1.1.3:
+object.entries@^1.1.0, object.entries@^1.1.2, object.entries@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/object.entries/-/object.entries-1.1.3.tgz#c601c7f168b62374541a07ddbd3e2d5e4f7711a6"
   integrity sha512-ym7h7OZebNS96hn5IJeyUmaWhaSM4SVtAPPfNLQEI2MYWCO2egsITb9nab2+i/Pwibx+R0mtn+ltKJXRSeTMGg==
@@ -13705,7 +13784,7 @@ object.entries@^1.1.0, object.entries@^1.1.3:
     es-abstract "^1.18.0-next.1"
     has "^1.0.3"
 
-object.fromentries@^2.0.4:
+object.fromentries@^2.0.2, object.fromentries@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/object.fromentries/-/object.fromentries-2.0.4.tgz#26e1ba5c4571c5c6f0890cef4473066456a120b8"
   integrity sha512-EsFBshs5RUUpQEY1D4q/m59kMfz4YJvxuNCJcv/jWwOJr34EaVnG11ZrZa0UHB3wnzV1wx8m58T4hQL8IuNXlQ==
@@ -15066,7 +15145,7 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier@2.2.1:
+prettier@2.2.1, prettier@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
   integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
@@ -15549,6 +15628,11 @@ react-refresh@^0.4.0:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.4.3.tgz#966f1750c191672e76e16c2efa569150cc73ab53"
   integrity sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA==
+
+react-ssr-prepass@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-ssr-prepass/-/react-ssr-prepass-1.4.0.tgz#33a3db19414f0f8f9f3f781c88f760ae366b4f51"
+  integrity sha512-0SzdmiQUtHvhxCabHg9BI/pkJfijGkQ0jQL6fC4YFy7idaDOuaiQLsajIkkNxffFXtJFHIWFITlve2WB88e0Jw==
 
 react-timer-mixin@^0.13.4:
   version "0.13.4"
@@ -17150,7 +17234,7 @@ string-width@^4.0.0, string-width@^4.1.0, string-width@^4.2.0:
     is-fullwidth-code-point "^3.0.0"
     strip-ansi "^6.0.0"
 
-string.prototype.matchall@^4.0.4:
+string.prototype.matchall@^4.0.2, string.prototype.matchall@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/string.prototype.matchall/-/string.prototype.matchall-4.0.4.tgz#608f255e93e072107f5de066f81a2dfb78cf6b29"
   integrity sha512-pknFIWVachNcyqRfaQSeu/FUfpvJTe4uskUSZ9Wc1RijsPuzbZ8TyYT8WCNnntCjUEqQ3vUHMAfVj2+wLAisPQ==
@@ -17918,7 +18002,7 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2, tslib@^2.1.0:
+tslib@^2, tslib@^2.1.0, tslib@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
   integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==

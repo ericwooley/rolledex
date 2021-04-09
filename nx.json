@@ -19,6 +19,8 @@
     "expo": { "tags": [] },
     "ui": { "tags": [] },
     "auth": { "tags": [] },
-    "sdk": { "tags": [] }
+    "sdk": { "tags": [] },
+    "gql": { "tags": [] },
+    "forms": { "tags": [] }
   }
 }
