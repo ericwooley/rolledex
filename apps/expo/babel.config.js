@@ -8,6 +8,7 @@ module.exports = function (api) {
         {
           alias: {
             '@rolledex/ui': '../../libs/ui/src/index.ts',
+            '@rolledex/forms': '../../libs/forms/src/index.ts',
           },
         },
       ],

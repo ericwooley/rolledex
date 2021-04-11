@@ -12,7 +12,15 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-storybook"
+        ]
+      }
     }
   },
   "projects": {
@@ -21,6 +29,7 @@
     "auth": { "tags": [] },
     "sdk": { "tags": [] },
     "gql": { "tags": [] },
-    "forms": { "tags": [] }
+    "forms": { "tags": [] },
+    "forms-e2e": { "tags": [], "implicitDependencies": ["forms"] }
   }
 }

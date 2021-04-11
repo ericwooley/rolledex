@@ -1,5 +1,3 @@
-import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -467,36 +465,3 @@ export type MeQuery = (
     & Pick<MeResponse, 'id' | 'email'>
   )> }
 );
-
-
-export const LoginDocument = `
-    mutation login($email: String!, $password: String!) {
-  login(loginArgs: {email: $email, password: $password}) {
-    accessToken
-  }
-}
-    `;
-export const MeDocument = `
-    query me {
-  me {
-    id
-    email
-  }
-}
-    `;
-
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
-
-
-const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
-export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-  return {
-    login(variables: LoginMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LoginMutation> {
-      return withWrapper(() => client.request<LoginMutation>(LoginDocument, variables, requestHeaders));
-    },
-    me(variables?: MeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<MeQuery> {
-      return withWrapper(() => client.request<MeQuery>(MeDocument, variables, requestHeaders));
-    }
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;

@@ -21,3 +21,8 @@ generates:
       - typescript-react-apollo
     config:
       withHooks: true
+  libs/sdk/src/lib/generated/docs.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node

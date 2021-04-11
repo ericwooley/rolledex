@@ -39,6 +39,7 @@ export type LogoutResponse = {
 
 export type MeResponse = {
   __typename?: 'MeResponse';
+  authorized: Scalars['Boolean'];
   email: Scalars['String'];
   id: Scalars['uuid'];
 };
@@ -110,9 +111,9 @@ export type Mutation_Root = {
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
   /** perform the action: "login" */
-  login?: Maybe<LoginResponse>;
+  login: LoginResponse;
   /** perform the action: "logout" */
-  logout?: Maybe<LogoutResponse>;
+  logout: LogoutResponse;
   /** perform the action: "refreshToken" */
   refreshToken?: Maybe<NewTokenResponse>;
   /** perform the action: "signUp" */
@@ -195,7 +196,7 @@ export enum Order_By {
 export type Query_Root = {
   __typename?: 'query_root';
   /** perform the action: "me" */
-  me: MeResponse;
+  me?: Maybe<MeResponse>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -234,7 +235,7 @@ export type Query_RootUsers_By_PkArgs = {
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** perform the action: "me" */
-  me: MeResponse;
+  me?: Maybe<MeResponse>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -451,10 +452,10 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = (
   { __typename?: 'mutation_root' }
-  & { login?: Maybe<(
+  & { login: (
     { __typename?: 'LoginResponse' }
     & Pick<LoginResponse, 'accessToken'>
-  )> }
+  ) }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -462,10 +463,10 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = (
   { __typename?: 'query_root' }
-  & { me: (
+  & { me?: Maybe<(
     { __typename?: 'MeResponse' }
     & Pick<MeResponse, 'id' | 'email'>
-  ) }
+  )> }
 );
 
 

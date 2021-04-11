@@ -5,6 +5,7 @@ import { Menu, ProgressBar } from 'react-native-paper';
 import { useQuery, useRefetch, useMutation, useMetaState } from '@rolledex/gql';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Styled from 'styled-components/native';
+import { LoginForm } from '@rolledex/forms';
 const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
 const ContentWrapper = Styled.View`
   position: relative;
@@ -41,7 +42,7 @@ export const AppBar: React.FunctionComponent = ({ children }) => {
     }
   );
 
-  return (
+  return query.me?.authorized ? (
     <>
       <Appbar.Header>
         <Appbar.Content
@@ -94,5 +95,7 @@ export const AppBar: React.FunctionComponent = ({ children }) => {
         {children}
       </ContentWrapper>
     </>
+  ) : (
+    <LoginForm />
   );
 };
