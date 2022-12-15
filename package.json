@@ -70,7 +70,7 @@
     "document-register-element": "1.13.1",
     "expo": "~40.0.0",
     "expo-status-bar": "~1.0.3",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "express-session": "^1.17.1",
     "formik": "^2.2.6",
     "gqless": "^2.0.11",
